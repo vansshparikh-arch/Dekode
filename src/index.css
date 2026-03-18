@@ -58,13 +58,37 @@ ul {
 }
 
 .section-title {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   text-align: center;
-  margin-bottom: 3rem;
-  background: linear-gradient(90deg, var(--color-text-main), var(--color-text-muted));
+  margin-bottom: 3.5rem;
+  background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
+  /* A very tight 2px shadow for definition, avoiding the blur look */
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.1);
+  letter-spacing: -0.01em;
 }
+
+.glow-text-blue {
+  color: var(--color-accent-blue);
+  /* Use a sharp 2px glow for the "core" and a faint 10px glow for the "aura" */
+  text-shadow: 
+    0 0 2px rgba(0, 210, 255, 0.9),
+    0 0 10px rgba(0, 210, 255, 0.3);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.glow-text-purple {
+  color: var(--color-accent-purple);
+  text-shadow: 
+    0 0 2px rgba(157, 78, 221, 0.9),
+    0 0 10px rgba(157, 78, 221, 0.3);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
 
 /* Animations */
 @keyframes fadeIn {
