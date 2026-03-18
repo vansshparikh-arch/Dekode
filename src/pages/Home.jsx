@@ -1,10 +1,13 @@
 import React, { useState, useRef, useEffect, Suspense, lazy } from 'react';
 import { Link } from 'react-router-dom';
-import ServicesGrid from '../components/ServicesGrid';
-import DeliveryFlow from '../components/DeliveryFlow';
-import PortfolioShowcase from '../components/PortfolioShowcase';
-import AnimatedOutcomes from '../components/AnimatedOutcomes';
+import LazySection from '../components/LazySection';
 import './Home.css';
+
+const ServicesGrid = lazy(() => import('../components/ServicesGrid'));
+const DeliveryFlow = lazy(() => import('../components/DeliveryFlow'));
+const PortfolioShowcase = lazy(() => import('../components/PortfolioShowcase'));
+const AnimatedOutcomes = lazy(() => import('../components/AnimatedOutcomes'));
+
 
 // Lazy-load Globe — splits Three.js into its own async chunk,
 // so it won't block the initial hero render.
@@ -47,13 +50,38 @@ const FadeInSection = ({ children, delay = 0, style = {} }) => {
   );
 };
 
-/* Globe wrapper — shows a skeleton shimmer until the lazy component is ready */
+/* Globe wrapper — load globe only once the holder has entered viewport */
 const GlobeWrapper = () => {
+  const ref = useRef(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '300px' }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div style={{ width: '100%', position: 'relative', minHeight: '400px' }}>
-      <Suspense fallback={<div className="globe-skeleton" />}>
-        <GlobeDemo />
-      </Suspense>
+    <div ref={ref} style={{ width: '100%', position: 'relative', minHeight: '400px' }}>
+      {shouldLoad ? (
+        <Suspense fallback={<div className="globe-skeleton" />}>
+          <GlobeDemo />
+        </Suspense>
+      ) : (
+        <div className="globe-skeleton" />
+      )}
     </div>
   );
 };
@@ -90,84 +118,104 @@ const Home = () => {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-20 bg-dark-layer">
-        <FadeInSection>
-          <div className="container text-center mb-16">
-            <h2 className="section-title">Everything you need for <span className="glow-text-blue">real-world adoption</span></h2>
-            <p className="section-subtitle">Strategy is only useful when it ships. We bring AI, infrastructure, and security together so your solution works in the real world, not just in a demo.</p>
-          </div>
-          <ServicesGrid />
-        </FadeInSection>
-      </section>
+      <LazySection minHeight="60vh" rootMargin="500px">
+        <section id="services" className="py-20 bg-dark-layer">
+          <Suspense fallback={<div style={{ minHeight: '40rem' }} />}>
+            <FadeInSection>
+              <div className="container text-center mb-16">
+                <h2 className="section-title">Everything you need for <span className="glow-text-blue">real-world adoption</span></h2>
+                <p className="section-subtitle">Strategy is only useful when it ships. We bring AI, infrastructure, and security together so your solution works in the real world, not just in a demo.</p>
+              </div>
+              <ServicesGrid />
+            </FadeInSection>
+          </Suspense>
+        </section>
+      </LazySection>
 
 
       {/* Methodology Section */}
-      <section id="methodology" className="py-20">
-        <FadeInSection>
-          <div className="container text-center mb-16">
-            <h2 className="section-title">A simple <span className="glow-text-blue">delivery flow</span> that reduces risk</h2>
-            <p className="section-subtitle">Clear steps. Clean scope. Security built in. We move from discovery to launch, then stay with you to run and improve what we build.</p>
-          </div>
-          <DeliveryFlow />
-        </FadeInSection>
-      </section>
+      <LazySection minHeight="60vh" rootMargin="500px">
+        <section id="methodology" className="py-20">
+          <Suspense fallback={<div style={{ minHeight: '35rem' }} />}>
+            <FadeInSection>
+              <div className="container text-center mb-16">
+                <h2 className="section-title">A simple <span className="glow-text-blue">delivery flow</span> that reduces risk</h2>
+                <p className="section-subtitle">Clear steps. Clean scope. Security built in. We move from discovery to launch, then stay with you to run and improve what we build.</p>
+              </div>
+              <DeliveryFlow />
+            </FadeInSection>
+          </Suspense>
+        </section>
+      </LazySection>
 
 
       {/* Outcomes Section */}
-      <section className="py-20 bg-dark-layer">
-        <FadeInSection>
-          <div className="container">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="section-title text-left">What changes after DEKODE builds with you</h2>
-                <p className="section-subtitle text-left mb-8">Practical improvements you can measure, across operations, decision-making, adoption, and security.</p>
+      <LazySection minHeight="60vh" rootMargin="500px">
+        <section className="py-20 bg-dark-layer">
+          <Suspense fallback={<div style={{ minHeight: '35rem' }} />}>
+            <FadeInSection>
+              <div className="container">
+                <div className="grid md:grid-cols-2 gap-12 items-center">
+                  <div>
+                    <h2 className="section-title text-left">What changes after DEKODE builds with you</h2>
+                    <p className="section-subtitle text-left mb-8">Practical improvements you can measure, across operations, decision-making, adoption, and security.</p>
+                  </div>
+                  <div className="outcomes-list">
+                    <AnimatedOutcomes
+                      outcomes={[
+                        "Faster execution through automation and AI-assisted workflows",
+                        "Better decisions with reliable data and intelligent insights",
+                        "Reduced operational load on teams",
+                        "Higher adoption through intuitive UI and streamlined user journeys",
+                        "Stronger security posture while adopting new AI capabilities",
+                        "Infrastructure that scales as your business grows"
+                      ]}
+                    />
+                  </div>
+                </div>
               </div>
-              <div className="outcomes-list">
-                <AnimatedOutcomes
-                  outcomes={[
-                    "Faster execution through automation and AI-assisted workflows",
-                    "Better decisions with reliable data and intelligent insights",
-                    "Reduced operational load on teams",
-                    "Higher adoption through intuitive UI and streamlined user journeys",
-                    "Stronger security posture while adopting new AI capabilities",
-                    "Infrastructure that scales as your business grows"
-                  ]}
-                />
-              </div>
-            </div>
-          </div>
-        </FadeInSection>
-      </section>
+            </FadeInSection>
+          </Suspense>
+        </section>
+      </LazySection>
 
       {/* Principles Section */}
-      <section className="py-20">
-        <FadeInSection>
-          <div className="container text-center mb-16">
-            <h2 className="section-title">Practical <span className="glow-text-blue">delivery</span>, not hype</h2>
-            <p className="section-subtitle">We don't just advise. We design, build, secure, and support systems that your team can use from day one, and improve over time.</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8 container">
-            {[
-              { title: "Practical AI, not hype", desc: "Focused on outcomes your team can actually use" },
-              { title: "UI that drives adoption", desc: "Interfaces built for clarity, speed, and real workflows" },
-              { title: "Simple by default", desc: "Clear communication, clean scope, no jargon" },
-              { title: "Security-first", desc: "Governance and protection embedded from day one" },
-              { title: "Sustainable foundations", desc: "Maintainable systems and cost-aware infrastructure" },
-              { title: "Long-term partner mindset", desc: "Build it, run it, improve it" },
-            ].map((item, i) => (
-              <div key={i} className="glass-card p-6 rounded-xl">
-                <h3 className="text-xl text-white font-bold mb-2">{item.title}</h3>
-                <p className="text-gray-400">{item.desc}</p>
+      <LazySection minHeight="60vh" rootMargin="500px">
+        <section className="py-20">
+          <Suspense fallback={<div style={{ minHeight: '35rem' }} />}>
+            <FadeInSection>
+              <div className="container text-center mb-16">
+                <h2 className="section-title">Practical <span className="glow-text-blue">delivery</span>, not hype</h2>
+                <p className="section-subtitle">We don't just advise. We design, build, secure, and support systems that your team can use from day one, and improve over time.</p>
               </div>
-            ))}
-          </div>
-        </FadeInSection>
-      </section>
+              <div className="grid md:grid-cols-3 gap-8 container">
+                {[
+                  { title: "Practical AI, not hype", desc: "Focused on outcomes your team can actually use" },
+                  { title: "UI that drives adoption", desc: "Interfaces built for clarity, speed, and real workflows" },
+                  { title: "Simple by default", desc: "Clear communication, clean scope, no jargon" },
+                  { title: "Security-first", desc: "Governance and protection embedded from day one" },
+                  { title: "Sustainable foundations", desc: "Maintainable systems and cost-aware infrastructure" },
+                  { title: "Long-term partner mindset", desc: "Build it, run it, improve it" },
+                ].map((item, i) => (
+                  <div key={i} className="glass-card p-6 rounded-xl">
+                    <h3 className="text-xl text-white font-bold mb-2">{item.title}</h3>
+                    <p className="text-gray-400">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </FadeInSection>
+          </Suspense>
+        </section>
+      </LazySection>
 
       {/* Portfolio Showcase */}
-      <FadeInSection>
-        <PortfolioShowcase />
-      </FadeInSection>
+      <LazySection minHeight="60vh" rootMargin="500px">
+        <Suspense fallback={<div style={{ minHeight: '40rem' }} />}>
+          <FadeInSection>
+            <PortfolioShowcase />
+          </FadeInSection>
+        </Suspense>
+      </LazySection>
     </div>
   );
 };

@@ -5,7 +5,7 @@ import React, { useRef, useState, useEffect } from 'react';
  * Until then it renders a lightweight invisible placeholder that
  * reserves the same amount of vertical space so the layout doesn't jump.
  */
-const LazySection = ({ children, minHeight = '10rem', className = '', style = {} }) => {
+const LazySection = ({ children, minHeight = '10rem', className = '', style = {}, rootMargin = '200px' }) => {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
 
@@ -20,7 +20,7 @@ const LazySection = ({ children, minHeight = '10rem', className = '', style = {}
           observer.disconnect();
         }
       },
-      { rootMargin: '200px' } // start loading 200px before it enters view
+      { rootMargin } // start loading before it enters view
     );
 
     observer.observe(el);
