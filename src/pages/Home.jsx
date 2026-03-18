@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Link } from 'react-router-dom';
-import { GlobeDemo } from '../components/GlobeDemo';
 import ServicesGrid from '../components/ServicesGrid';
 import DeliveryFlow from '../components/DeliveryFlow';
 import PortfolioShowcase from '../components/PortfolioShowcase';
 import AnimatedOutcomes from '../components/AnimatedOutcomes';
+import LazySection from '../components/LazySection';
 import './Home.css';
+
+// Lazy-load Globe — splits Three.js into its own async chunk,
+// so it won't block the initial hero render
+const GlobeDemo = lazy(() => import('../components/GlobeDemo').then(m => ({ default: m.GlobeDemo })));
+
 
 const Home = () => {
   return (
@@ -32,73 +37,85 @@ const Home = () => {
           </div>
           
           <div className="globe-section visible w-full flex justify-center relative" style={{ zIndex: 10, animationDelay: '0.5s', marginBottom: '-4rem' }}>
-            <GlobeDemo />
+            <Suspense fallback={<div style={{ width: '100%', maxWidth: '800px', aspectRatio: '1 / 1', margin: '0 auto' }} />}>
+              <GlobeDemo />
+            </Suspense>
           </div>
         </div>
       </section>
 
-      <section id="services" className="py-20 bg-dark-layer">
-        <div className="container text-center mb-16">
-          <h2 className="section-title">Everything you need to go from AI idea to real-world adoption</h2>
-          <p className="section-subtitle">Strategy is only useful when it ships. We bring AI, infrastructure, and security together so your solution works in the real world, not just in a demo.</p>
-        </div>
-        <ServicesGrid />
-      </section>
+      <LazySection minHeight="40rem">
+        <section id="services" className="py-20 bg-dark-layer">
+          <div className="container text-center mb-16">
+            <h2 className="section-title">Everything you need to go from AI idea to real-world adoption</h2>
+            <p className="section-subtitle">Strategy is only useful when it ships. We bring AI, infrastructure, and security together so your solution works in the real world, not just in a demo.</p>
+          </div>
+          <ServicesGrid />
+        </section>
+      </LazySection>
 
-      <section id="methodology" className="py-20">
-        <div className="container text-center mb-16">
-          <h2 className="section-title">A simple delivery flow that reduces risk and speeds up results</h2>
-          <p className="section-subtitle">Clear steps. Clean scope. Security built in. We move from discovery to launch, then stay with you to run and improve what we build.</p>
-        </div>
-        <DeliveryFlow />
-      </section>
+      <LazySection minHeight="30rem">
+        <section id="methodology" className="py-20">
+          <div className="container text-center mb-16">
+            <h2 className="section-title">A simple delivery flow that reduces risk and speeds up results</h2>
+            <p className="section-subtitle">Clear steps. Clean scope. Security built in. We move from discovery to launch, then stay with you to run and improve what we build.</p>
+          </div>
+          <DeliveryFlow />
+        </section>
+      </LazySection>
 
-      <section className="py-20 bg-dark-layer">
-        <div className="container">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="section-title text-left">What changes after DEKODE builds with you</h2>
-              <p className="section-subtitle text-left mb-8">Practical improvements you can measure, across operations, decision-making, adoption, and security.</p>
-            </div>
-            <div className="outcomes-list">
-              <AnimatedOutcomes 
-                outcomes={[
-                  "Faster execution through automation and AI-assisted workflows",
-                  "Better decisions with reliable data and intelligent insights",
-                  "Reduced operational load on teams",
-                  "Higher adoption through intuitive UI and streamlined user journeys",
-                  "Stronger security posture while adopting new AI capabilities",
-                  "Infrastructure that scales as your business grows"
-                ]} 
-              />
+      <LazySection minHeight="20rem">
+        <section className="py-20 bg-dark-layer">
+          <div className="container">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div>
+                <h2 className="section-title text-left">What changes after DEKODE builds with you</h2>
+                <p className="section-subtitle text-left mb-8">Practical improvements you can measure, across operations, decision-making, adoption, and security.</p>
+              </div>
+              <div className="outcomes-list">
+                <AnimatedOutcomes 
+                  outcomes={[
+                    "Faster execution through automation and AI-assisted workflows",
+                    "Better decisions with reliable data and intelligent insights",
+                    "Reduced operational load on teams",
+                    "Higher adoption through intuitive UI and streamlined user journeys",
+                    "Stronger security posture while adopting new AI capabilities",
+                    "Infrastructure that scales as your business grows"
+                  ]} 
+                />
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </LazySection>
 
-      <section className="py-20">
-        <div className="container text-center mb-16">
-          <h2 className="section-title">Practical delivery, not hype</h2>
-          <p className="section-subtitle">We don't just advise. We design, build, secure, and support systems that your team can use from day one, and improve over time.</p>
-        </div>
-        <div className="grid md:grid-cols-3 gap-8 container">
-          {[
-            { title: "Practical AI, not hype", desc: "Focused on outcomes your team can actually use" },
-            { title: "UI that drives adoption", desc: "Interfaces built for clarity, speed, and real workflows" },
-            { title: "Simple by default", desc: "Clear communication, clean scope, no jargon" },
-            { title: "Security-first", desc: "Governance and protection embedded from day one" },
-            { title: "Sustainable foundations", desc: "Maintainable systems and cost-aware infrastructure" },
-            { title: "Long-term partner mindset", desc: "Build it, run it, improve it" },
-          ].map((item, i) => (
-            <div key={i} className="glass-card p-6 rounded-xl">
-              <h3 className="text-xl text-white font-bold mb-2">{item.title}</h3>
-              <p className="text-gray-400">{item.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      <LazySection minHeight="20rem">
+        <section className="py-20">
+          <div className="container text-center mb-16">
+            <h2 className="section-title">Practical delivery, not hype</h2>
+            <p className="section-subtitle">We don't just advise. We design, build, secure, and support systems that your team can use from day one, and improve over time.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8 container">
+            {[
+              { title: "Practical AI, not hype", desc: "Focused on outcomes your team can actually use" },
+              { title: "UI that drives adoption", desc: "Interfaces built for clarity, speed, and real workflows" },
+              { title: "Simple by default", desc: "Clear communication, clean scope, no jargon" },
+              { title: "Security-first", desc: "Governance and protection embedded from day one" },
+              { title: "Sustainable foundations", desc: "Maintainable systems and cost-aware infrastructure" },
+              { title: "Long-term partner mindset", desc: "Build it, run it, improve it" },
+            ].map((item, i) => (
+              <div key={i} className="glass-card p-6 rounded-xl">
+                <h3 className="text-xl text-white font-bold mb-2">{item.title}</h3>
+                <p className="text-gray-400">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      </LazySection>
 
-      <PortfolioShowcase />
+      <LazySection minHeight="20rem">
+        <PortfolioShowcase />
+      </LazySection>
     </div>
   );
 };
