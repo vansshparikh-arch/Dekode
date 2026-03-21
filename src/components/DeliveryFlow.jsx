@@ -23,11 +23,11 @@ const DeliveryFlow = () => {
   }, []);
 
   const steps = [
-    { num: '01', title: 'Discover', desc: 'Align on goals, users, constraints, workflows, and actionable quick wins.', color: '#00d2ff' },
-    { num: '02', title: 'Design', desc: 'Define solution architecture, UI/UX flows, delivery plan, and success measures.', color: '#3a86ff' },
-    { num: '03', title: 'Build', desc: 'Implement, integrate, test, and document logic so it’s production-ready.', color: '#8338ec' },
-    { num: '04', title: 'Secure', desc: 'Embed privacy, access control, IT governance, and hardening from day one.', color: '#ff006e' },
-    { num: '05', title: 'Run & Optimise', desc: 'Support what we ship, monitor system performance, iterate, and optimise.', color: '#00f5d4' },
+    { num: '01', title: 'Discover', desc: 'Align on goals, users, constraints, workflows, and actionable quick wins.', color: 'var(--color-accent-blue)' },
+    { num: '02', title: 'Design', desc: 'Define solution architecture, UI/UX flows, delivery plan, and success measures.', color: 'var(--color-accent-blue)' },
+    { num: '03', title: 'Build', desc: 'Implement, integrate, test, and document logic so it’s production-ready.', color: 'var(--color-accent-purple)' },
+    { num: '04', title: 'Secure', desc: 'Embed privacy, access control, IT governance, and hardening from day one.', color: 'var(--color-accent-blue)' },
+    { num: '05', title: 'Run & Optimise', desc: 'Support what we ship, monitor system performance, iterate, and optimise.', color: 'var(--color-accent-blue)' },
   ];
 
   return (

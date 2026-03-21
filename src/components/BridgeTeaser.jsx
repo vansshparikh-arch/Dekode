@@ -52,17 +52,17 @@ const BridgeTeaser = () => {
         canvas.width * 0.5, canvas.height * 0.8, // ctrl2
         n2x, n2y
       );
-      ctx.strokeStyle = 'rgba(0, 210, 255, 0.2)';
+      ctx.strokeStyle = 'rgba(53, 118, 193, 0.2)';
       ctx.lineWidth = 2;
       ctx.stroke();
 
       // Draw Main Nodes
       ctx.beginPath();
       ctx.arc(n1x, n1y, 10, 0, Math.PI * 2);
-      ctx.fillStyle = '#00d2ff';
+      ctx.fillStyle = 'var(--color-accent-blue)';
       ctx.fill();
       ctx.shadowBlur = 20;
-      ctx.shadowColor = '#00d2ff';
+      ctx.shadowColor = 'var(--color-accent-blue)';
 
       ctx.beginPath();
       ctx.arc(n2x, n2y, 10, 0, Math.PI * 2);

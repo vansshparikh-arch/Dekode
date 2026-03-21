@@ -44,8 +44,8 @@
 
 /* ── Project Card Design ── */
 .project-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 24px;
   padding: 3rem;
   display: grid;
@@ -108,7 +108,7 @@
 
 .meta-item p {
   font-weight: 600;
-  color: #fff;
+  color: var(--color-text-main);
 }
 
 /* ── Carousel Controls ── */
@@ -119,9 +119,9 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #fff;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: var(--color-text-main);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -133,7 +133,7 @@
 .carousel-btn:hover {
   background: var(--color-accent-blue);
   border-color: var(--color-accent-blue);
-  box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+  box-shadow: 0 0 20px rgba(53, 118, 193, 0.4);
 }
 
 .carousel-btn.prev { left: -1rem; }
@@ -149,7 +149,7 @@
 .pagination-dot {
   width: 40px;
   height: 4px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.1);
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -175,9 +175,9 @@
   .carousel-btn {
     width: 44px;
     height: 44px;
-    background: rgba(10, 10, 15, 0.7);
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
   }
 
   .carousel-btn.prev { left: -0.5rem; }

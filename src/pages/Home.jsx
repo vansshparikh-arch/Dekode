@@ -9,10 +9,6 @@ const PortfolioShowcase = lazy(() => import('../components/PortfolioShowcase'));
 const AnimatedOutcomes = lazy(() => import('../components/AnimatedOutcomes'));
 
 
-// Lazy-load Globe — splits Three.js into its own async chunk,
-// so it won't block the initial hero render.
-// GlobeDemo is a named export, so we map it to default for lazy().
-const GlobeDemo = lazy(() => import('../components/GlobeDemo').then(m => ({ default: m.GlobeDemo })));
 
 /* Fades a section in when it enters the viewport */
 const FadeInSection = ({ children, delay = 0, style = {} }) => {
@@ -50,42 +46,6 @@ const FadeInSection = ({ children, delay = 0, style = {} }) => {
   );
 };
 
-/* Globe wrapper — load globe only once the holder has entered viewport */
-const GlobeWrapper = () => {
-  const ref = useRef(null);
-  const [shouldLoad, setShouldLoad] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShouldLoad(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '300px' }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div ref={ref} style={{ width: '100%', position: 'relative', minHeight: '400px' }}>
-      {shouldLoad ? (
-        <Suspense fallback={<div className="globe-skeleton" />}>
-          <GlobeDemo />
-        </Suspense>
-      ) : (
-        <div className="globe-skeleton" />
-      )}
-    </div>
-  );
-};
-
 const Home = () => {
   return (
     <div className="page-container">
@@ -95,13 +55,11 @@ const Home = () => {
           <div className="grid-overlay"></div>
           <div className="glow-orb orb-1"></div>
           <div className="glow-orb orb-2" style={{ top: '20%', right: '-10%', bottom: 'auto' }}></div>
+          <div className="glow-orb orb-3"></div>
         </div>
-        <div className="container hero-content text-center" style={{ paddingTop: '6rem' }}>
-          <div className="inline-block px-3 py-1 mb-6 font-mono text-xs uppercase tracking-widest animate-fade-in" style={{ animationDelay: '0.1s', color: 'var(--color-accent-blue)', letterSpacing: '0.15em', background: 'rgba(0, 210, 255, 0.05)', borderRadius: '4px' }}>
-            DEKODE
-          </div>
+        <div className="container hero-content text-center" style={{ paddingTop: '8rem' }}>
           <h1 className="hero-headline animate-fade-in mb-6" style={{ fontSize: '4.25rem', fontWeight: '700', lineHeight: '1.15', animationDelay: '0.2s', letterSpacing: '-0.02em', maxWidth: '900px', margin: '0 auto 1.5rem' }}>
-            Future-proof your business and people with <span style={{color: 'var(--color-accent-blue)'}}>secure</span> <span style={{color: 'var(--color-accent-purple)'}}>AI</span> and scalable IT foundations
+            Future-proof your business and people with <span style={{color: 'var(--color-accent-yellow)'}}>secure AI</span> and <span style={{color: 'var(--color-accent-blue)'}}>scalable IT foundations</span>
           </h1>
           <p className="hero-subheadline animate-fade-in mx-auto text-lg text-gray-300" style={{ margin: '0 auto 3rem', maxWidth: '750px', animationDelay: '0.3s', lineHeight: '1.6' }}>
             We combine AI consultancy, solution development, infrastructure, and security to deliver real systems your team can adopt from day one.
@@ -111,9 +69,7 @@ const Home = () => {
             <Link to="/#services" className="btn-secondary" style={{ display: 'inline-block', textDecoration: 'none', position: 'relative', zIndex: 20 }}>EXPLORE CAPABILITIES</Link>
           </div>
 
-          <div className="globe-section animate-fade-in w-full flex justify-center relative" style={{ zIndex: 10, animationDelay: '0.5s', marginBottom: '-4rem' }}>
-            <GlobeWrapper />
-          </div>
+
         </div>
       </section>
 

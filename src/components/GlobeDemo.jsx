@@ -6,16 +6,16 @@ export function GlobeDemo() {
     pointSize: 4,
     globeColor: "#0a0a0f", // matches --color-bg-dark
     showAtmosphere: true,
-    atmosphereColor: "#00d2ff",
+    atmosphereColor: "#3576C1",
     atmosphereAltitude: 0.15,
-    emissive: "#0a0a0f",
+    emissive: "#2d2d5bff",
     emissiveIntensity: 0.1,
     shininess: 0.9,
     polygonColor: "rgba(255,255,255,0.7)",
     ambientLight: "#38bdf8",
-    directionalLeftLight: "#ffffff",
-    directionalTopLight: "#ffffff",
-    pointLight: "#ffffff",
+    directionalLeftLight: "#dc0f0fff",
+    directionalTopLight: "#a41515ff",
+    pointLight: "#db1212ff",
     arcTime: 2000,
     arcLength: 0.9,
     rings: 1,
@@ -25,7 +25,7 @@ export function GlobeDemo() {
     autoRotateSpeed: 0.5,
   };
 
-  const colors = ["#00d2ff", "#9d4edd", "#00f5d4", "#ff006e"];
+  const colors = ["#3576C1", "#FEB611", "#3576C1", "#FEB611"];
 
   // Coordinates:
   // Canada: 56.13, -106.34
@@ -33,7 +33,7 @@ export function GlobeDemo() {
   // Australia: -25.27, 133.77
   // India: 20.59, 78.96
   // UK: 55.37, -3.43
-  
+
   const locations = [
     { lat: 56.13, lng: -106.34 }, // Canada
     { lat: 55.37, lng: -3.43 },   // UK

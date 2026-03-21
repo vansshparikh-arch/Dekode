@@ -22,22 +22,21 @@ const Header = () => {
     <header className={`modern-header ${scrolled ? 'scrolled' : ''}`}>
       <div className="container header-content">
         <div className="logo-container">
-          <div className="logo-glow"></div>
-          <Link to="/" className="logo-text" style={{ textDecoration: 'none' }} onClick={closeMobileMenu}>DEK<span className="logo-accent">O</span>DE</Link>
+          <Link to="/" className="logo-text" style={{ textDecoration: 'none' }} onClick={closeMobileMenu}>DEKODE</Link>
         </div>
         
         <nav className="desktop-nav">
           <ul>
-            <li><Link to="/about" className="nav-link">About Us</Link></li>
-            <li><Link to="/#services" className="nav-link">Services</Link></li>
-            <li><Link to="/#methodology" className="nav-link">Methodology</Link></li>
-            <li><Link to="/bridge" className="nav-link">Bridge</Link></li>
+            <li><Link to="/about" className="nav-link">ABOUT US</Link></li>
+            <li><Link to="/services" className="nav-link">SERVICES</Link></li>
+            <li><Link to="/#methodology" className="nav-link">CASE STUDY &or;</Link></li>
+            <li><Link to="/bridge" className="nav-link">BRIDGE <span style={{color: 'var(--color-accent-yellow)'}}>(SOON)</span></Link></li>
           </ul>
         </nav>
         
         <div className="cta-container desktop-only">
-          <a href="mailto:pm@dekodeglobal.com" className="btn-primary glow-btn" style={{ textDecoration: 'none', display: 'inline-block' }}>
-            Book Discovery Call
+          <a href="mailto:pm@dekodeglobal.com" className="btn-outline glow-btn" style={{ textDecoration: 'none', display: 'inline-block', border: '1px solid rgba(255,255,255,0.4)', borderRadius: '4px', padding: '0.5rem 1.5rem', color: '#fff' }}>
+            CONTACT
           </a>
         </div>
 
@@ -57,7 +56,7 @@ const Header = () => {
       <div className={`mobile-nav ${isMobileMenuOpen ? 'open' : ''}`}>
         <ul>
           <li><Link to="/about" className="mobile-nav-link" onClick={closeMobileMenu}>About Us</Link></li>
-          <li><Link to="/#services" className="mobile-nav-link" onClick={closeMobileMenu}>Services</Link></li>
+          <li><Link to="/services" className="mobile-nav-link" onClick={closeMobileMenu}>SERVICES</Link></li>
           <li><Link to="/#methodology" className="mobile-nav-link" onClick={closeMobileMenu}>Methodology</Link></li>
           <li><Link to="/bridge" className="mobile-nav-link" onClick={closeMobileMenu}>Bridge</Link></li>
         </ul>

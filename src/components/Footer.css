@@ -1,9 +1,8 @@
 /* Footer.css */
 .modern-footer {
-  background: #050508;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: #043364;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding: 6rem 0 2rem;
-  margin-top: 4rem;
   position: relative;
   overflow: hidden;
 }
@@ -15,8 +14,8 @@
   transform: translateX(-50%);
   width: 80%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--color-accent-blue), transparent);
-  opacity: 0.3;
+  background: linear-gradient(90deg, transparent, var(--color-accent-yellow), transparent);
+  opacity: 0.5;
 }
 
 .footer-top {
@@ -32,7 +31,7 @@
 }
 
 .footer-mission {
-  color: var(--color-text-muted);
+  color: #cccccc;
   max-width: 350px;
   margin-bottom: 2rem;
   font-size: 0.95rem;
@@ -50,24 +49,24 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--color-text-main);
+  color: #ffffff;
   font-size: 0.85rem;
   font-weight: 600;
   transition: all 0.3s ease;
 }
 
 .social-link:hover {
-  background: rgba(0, 210, 255, 0.1);
+  background: rgba(53, 118, 193, 0.1);
   border-color: var(--color-accent-blue);
   color: var(--color-accent-blue);
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 210, 255, 0.2);
+  box-shadow: 0 5px 15px rgba(53, 118, 193, 0.2);
 }
 
 .footer-links-group h4 {
-  color: var(--color-text-main);
+  color: #ffffff;
   font-size: 1.1rem;
   margin-bottom: 1.5rem;
   position: relative;
@@ -90,7 +89,7 @@
 }
 
 .footer-links-group a {
-  color: var(--color-text-muted);
+  color: #cccccc;
   font-size: 0.95rem;
   transition: color 0.3s ease;
 }
@@ -106,13 +105,13 @@
 }
 
 .team-name {
-  color: var(--color-text-main);
+  color: #ffffff;
   font-weight: 500;
   font-size: 0.95rem;
 }
 
 .team-role {
-  color: var(--color-text-muted);
+  color: #cccccc;
   font-size: 0.8rem;
   font-family: monospace;
 }
@@ -122,8 +121,8 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  color: var(--color-text-muted);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cccccc;
   font-size: 0.85rem;
 }
 
@@ -133,7 +132,7 @@
 }
 
 .footer-legal a:hover {
-  color: var(--color-text-main);
+  color: #ffffff;
 }
 
 @media (max-width: 968px) {

@@ -22,41 +22,25 @@ const HeroSection = () => {
   return (
     <section id="about" className="hero-section">
       <div className="hero-background">
-        <div className="grid-overlay"></div>
+        <div className="glow-orb orb-1"></div>
         <div className="glow-orb orb-1"></div>
         <div className="glow-orb orb-2"></div>
       </div>
 
-      <div className="container hero-content">
-        <div className={`terminal-container ${initialized ? 'active' : ''}`}>
-          <div className="terminal-header">
-            <span className="dot dot-red"></span>
-            <span className="dot dot-yellow"></span>
-            <span className="dot dot-green"></span>
-            <span className="terminal-title">SYS_INIT // DEKODE</span>
-          </div>
-          <div className="terminal-body">
-            <p className={`terminal-line ${textStage >= 0 ? 'visible' : ''}`}>
-              <span className="prompt">&gt;</span> Executing module: core_mission.sh
-            </p>
-            <p className={`terminal-line success ${textStage >= 1 ? 'visible' : ''}`}>
-              [OK] System Ready.
-            </p>
-            <h1 className={`hero-headline ${textStage >= 2 ? 'visible' : ''}`}>
-              We make <span className="text-gradient">technology</span> work for the people who use it.
-            </h1>
-            <p className={`hero-subheadline ${textStage >= 3 ? 'visible' : ''}`}>
-              DEKODE helps businesses and communities modernise their systems, adopt AI with confidence, and build digital products that teams actually want to use. We handle the complexity so you don't have to.
-            </p>
-            
-            <div className={`hero-actions ${textStage >= 3 ? 'visible' : ''}`}>
-              <a href="mailto:pm@dekodeglobal.com" className="btn-primary" style={{ display: 'inline-block', textDecoration: 'none', position: 'relative', zIndex: 20 }}>Book a Discovery Call</a>
-              <a href="#services" className="btn-secondary" style={{ display: 'inline-block', textDecoration: 'none', position: 'relative', zIndex: 20 }}>Explore Services</a>
-            </div>
+      <div className="container hero-content" style={{ alignItems: 'flex-start', textAlign: 'left' }}>
+        <div style={{ maxWidth: '800px', width: '100%', marginBottom: '4rem', zIndex: 10 }}>
+          <h1 className={`hero-headline ${textStage >= 1 ? 'visible' : ''}`} style={{ color: '#ffffff' }}>
+            Future-proof your business and people with secure AI and <span style={{color: 'var(--color-accent-yellow)'}}>scalable IT foundations</span>
+          </h1>
+          <p className={`hero-subheadline ${textStage >= 2 ? 'visible' : ''}`} style={{ color: 'rgba(255, 255, 255, 0.9)' }}>
+            We combine AI consultancy, solution development, infrastructure, and security to deliver real systems your team can adopt from day one.
+          </p>
+          
+          <div className={`hero-actions ${textStage >= 3 ? 'visible' : ''}`} style={{ justifyContent: 'flex-start' }}>
+            <a href="mailto:pm@dekodeglobal.com" className="btn-primary" style={{ display: 'inline-block', textDecoration: 'none', position: 'relative', zIndex: 20 }}>BOOK A DISCOVERY CALL &rarr;</a>
+            <a href="#services" className="btn-secondary" style={{ display: 'inline-block', textDecoration: 'none', position: 'relative', zIndex: 20 }}>EXPLORE CAPABILITIES</a>
           </div>
         </div>
-
-
         <div className={`vision-cards ${textStage >= 3 ? 'visible' : ''}`}>
           <div className="glass-card vision-card">
             <div className="card-icon neon-emoji-1">⚡</div>

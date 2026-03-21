@@ -100,7 +100,7 @@
 
 .bridge-connection-icon {
   font-size: 2.5rem;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(0, 0, 0, 0.3);
   animation: floatIcon 3s ease-in-out infinite;
 }
 
@@ -118,7 +118,7 @@
 }
 
 .pillar {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(0, 0, 0, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
@@ -128,9 +128,9 @@
 }
 
 .pillar:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.1);
   transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 768px) {

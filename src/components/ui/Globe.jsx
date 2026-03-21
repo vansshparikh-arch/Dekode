@@ -19,12 +19,12 @@ export function Globe({ globeConfig, data }) {
 
   const defaultProps = {
     pointSize: 1,
-    atmosphereColor: "#ffffff",
+    atmosphereColor: "#3576C1",
     showAtmosphere: true,
     atmosphereAltitude: 0.1,
-    polygonColor: "rgba(255,255,255,0.7)",
-    globeColor: "#1d072e",
-    emissive: "#000000",
+    polygonColor: "rgba(4, 51, 100,0.7)",
+    globeColor: "#ff7505",
+    emissive: "#3576C1",
     emissiveIntensity: 0.1,
     shininess: 0.9,
     arcTime: 2000,
@@ -39,7 +39,7 @@ export function Globe({ globeConfig, data }) {
     if (!globeRef.current && groupRef.current) {
       globeRef.current = new ThreeGlobe();
       groupRef.current.add(globeRef.current);
-      
+
       // Handle initial position if provided
       if (globeConfig.initialPosition) {
         const { lat, lng } = globeConfig.initialPosition;
@@ -49,7 +49,7 @@ export function Globe({ globeConfig, data }) {
         groupRef.current.rotation.y = -lng * Math.PI / 180;
         groupRef.current.rotation.x = lat * Math.PI / 180;
       }
-      
+
       setIsInitialized(true);
     }
   }, [globeConfig.initialPosition]);
@@ -136,7 +136,7 @@ export function Globe({ globeConfig, data }) {
 
     globeRef.current
       .ringsData([])
-      .ringColor(() => defaultProps.polygonColor)
+      .ringColor((e) => e.color || defaultProps.polygonColor)
       .ringMaxRadius(defaultProps.maxRings)
       .ringPropagationSpeed(RING_PROPAGATION_SPEED)
       .ringRepeatPeriod(
@@ -203,11 +203,11 @@ export function WebGLRendererConfig() {
 export function World(props) {
   const { globeConfig } = props;
   const scene = new Scene();
-  scene.fog = new Fog(0xffffff, 400, 2000);
+  scene.fog = new Fog(0xffffff, 200, 1500);
   return (
     <Canvas scene={scene} camera={{ fov: 50, near: 180, far: 1800, position: [0, 0, cameraZ] }}>
       <WebGLRendererConfig />
-      <ambientLight color={globeConfig.ambientLight} intensity={0.6} />
+      <ambientLight color={globeConfig.ambientLight} intensity={1} />
       <directionalLight
         color={globeConfig.directionalLeftLight}
         position={new Vector3(-400, 100, 400)}
@@ -245,10 +245,10 @@ export function hexToRgb(hex) {
   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
     ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-      }
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16),
+    }
     : null;
 }
 

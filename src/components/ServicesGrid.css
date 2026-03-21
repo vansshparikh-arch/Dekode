@@ -27,7 +27,7 @@
 
 /* ── Cyber Card Styles ── */
 .card-container {
-  filter: drop-shadow(0 0 20px rgba(64, 144, 181, 0.2)) drop-shadow(0 0 20px rgba(158, 48, 169, 0.2));
+  filter: drop-shadow(0 0 20px rgba(53, 118, 193, 0.3)) drop-shadow(0 0 20px rgba(254, 182, 17, 0.3));
   animation: blinkShadowsFilter 8s ease-in infinite;
 }
 
@@ -39,7 +39,7 @@
   text-align: center;
   padding: 1.5em;
   grid-template-rows: 0.2fr 0.6fr 0.2fr;
-  background-color: hsl(296, 59%, 4%);
+  background-color: #043364;
   width: 16em;
   aspect-ratio: 10/14;
   position: relative;
@@ -54,8 +54,8 @@
   width: 250%;
   aspect-ratio: 1/1;
   transform-origin: center;
-  background: linear-gradient(to bottom, transparent, transparent, #66e0ff, #66e0ff, #e366ff, #e366ff, transparent, transparent), 
-              linear-gradient(to left, transparent, transparent, #66e0ff, #66e0ff, #e366ff, #e366ff, transparent, transparent);
+  background: linear-gradient(to bottom, transparent, transparent, #3576C1, #3576C1, #FEB611, #FEB611, transparent, transparent), 
+              linear-gradient(to left, transparent, transparent, #3576C1, #3576C1, #FEB611, #FEB611, transparent, transparent);
   animation: rotate 8s infinite linear;
   z-index: 1;
 }
@@ -67,9 +67,9 @@
   left: 1%;
   width: 98%;
   height: 98%;
-  background: repeating-linear-gradient(to bottom, transparent 0%, rgba(64, 144, 181, 0.1) 1px, rgb(0, 0, 0) 3px, rgba(64, 144, 181, 0.05) 5px, #0a1a24 4px, transparent 0.5%), 
-              repeating-linear-gradient(to left, hsl(295, 60%, 4%) 100%, hsla(295, 60%, 4%, 0.99) 100%);
-  box-shadow: inset 0px 0px 30px 40px hsl(296, 59%, 4%);
+  background: repeating-linear-gradient(to bottom, transparent 0%, rgba(53, 118, 193, 0.1) 1px, rgb(0, 0, 0) 3px, rgba(53, 118, 193, 0.05) 5px, #021B35 4px, transparent 0.5%), 
+              repeating-linear-gradient(to left, #043364 100%, rgba(4, 51, 100, 0.99) 100%);
+  box-shadow: inset 0px 0px 30px 40px #043364;
   -webkit-clip-path: polygon(0 0, 85% 0, 100% 14%, 100% 60%, 92% 65%, 93% 77%, 99% 80%, 99% 90%, 89% 100%, 0 100%);
   clip-path: polygon(0 0, 85% 0, 100% 14%, 100% 60%, 92% 65%, 93% 77%, 99% 80%, 99% 90%, 89% 100%, 0 100%);
   animation: backglitch 94ms linear infinite;
@@ -80,8 +80,8 @@
   z-index: 80;
   -webkit-clip-path: polygon(90% 0, 100% 100%, 0% 100%, 0% 0%);
   clip-path: polygon(90% 0, 100% 100%, 0% 100%, 0% 0%);
-  background: linear-gradient(90deg, rgba(255, 254, 250, 0) 0%, rgba(102, 224, 255, 0.2) 27%, rgba(102, 224, 255, 0.2) 63%, rgba(255, 255, 255, 0) 100%), 
-              linear-gradient(0deg, rgba(102, 224, 255, 0.2) 0%, rgba(255, 255, 255, 0) 10%, rgba(255, 255, 255, 0) 96%, rgba(102, 224, 255, 0.2) 100%);
+  background: linear-gradient(90deg, rgba(255, 254, 250, 0) 0%, rgba(254, 182, 17, 0.2) 27%, rgba(254, 182, 17, 0.2) 63%, rgba(255, 255, 255, 0) 100%), 
+              linear-gradient(0deg, rgba(254, 182, 17, 0.2) 0%, rgba(255, 255, 255, 0) 10%, rgba(255, 255, 255, 0) 96%, rgba(254, 182, 17, 0.2) 100%);
   width: 95%;
   padding: 0.4em 0.8em;
   margin-bottom: 0.5em;
@@ -93,7 +93,7 @@
   text-align: right;
   position: relative;
   z-index: 2;
-  color: hsl(192, 100%, 88%);
+  color: #FEB611;
   font-size: 0.85rem;
   font-weight: 900;
   letter-spacing: 0.1em;
@@ -127,7 +127,7 @@
 }
 
 .service-full-desc {
-  color: hsl(192, 100%, 88%);
+  color: #FEB611;
   font-size: 0.75rem;
   font-weight: 500;
   line-height: 1.5;
@@ -145,9 +145,9 @@
 
 /* ── Animations ── */
 @keyframes backglitch {
-  0% { box-shadow: inset 0px 20px 30px 40px hsl(296, 59%, 4%); }
-  50% { box-shadow: inset 0px -20px 30px 40px hsl(296, 59%, 4.2%); }
-  to { box-shadow: inset 0px 20px 30px 40px hsl(296, 59%, 4%); }
+  0% { box-shadow: inset 0px 20px 30px 40px #043364; }
+  50% { box-shadow: inset 0px -20px 30px 40px #032b54; }
+  to { box-shadow: inset 0px 20px 30px 40px #043364; }
 }
 
 @keyframes rotate {
@@ -157,11 +157,11 @@
 }
 
 @keyframes blinkShadowsFilter {
-  0% { filter: drop-shadow(46px 36px 28px rgba(64, 144, 181, 0.15)) drop-shadow(-55px -40px 28px rgba(158, 48, 169, 0.15)); }
-  25% { filter: drop-shadow(46px -36px 24px rgba(64, 144, 181, 0.3)) drop-shadow(-55px 40px 24px rgba(158, 48, 169, 0.3)); }
-  50% { filter: drop-shadow(46px 36px 30px rgba(64, 144, 181, 0.3)) drop-shadow(-55px 40px 30px rgba(158, 48, 169, 0.1)); }
-  75% { filter: drop-shadow(20px -18px 25px rgba(64, 144, 181, 0.3)) drop-shadow(-20px 20px 25px rgba(158, 48, 169, 0.1)); }
-  to { filter: drop-shadow(46px 36px 28px rgba(64, 144, 181, 0.15)) drop-shadow(-55px -40px 28px rgba(158, 48, 169, 0.15)); }
+  0% { filter: drop-shadow(46px 36px 28px rgba(53, 118, 193, 0.2)) drop-shadow(-55px -40px 28px rgba(254, 182, 17, 0.2)); }
+  25% { filter: drop-shadow(46px -36px 24px rgba(53, 118, 193, 0.4)) drop-shadow(-55px 40px 24px rgba(254, 182, 17, 0.4)); }
+  50% { filter: drop-shadow(46px 36px 30px rgba(53, 118, 193, 0.4)) drop-shadow(-55px 40px 30px rgba(254, 182, 17, 0.15)); }
+  75% { filter: drop-shadow(20px -18px 25px rgba(53, 118, 193, 0.4)) drop-shadow(-20px 20px 25px rgba(254, 182, 17, 0.15)); }
+  to { filter: drop-shadow(46px 36px 28px rgba(53, 118, 193, 0.2)) drop-shadow(-55px -40px 28px rgba(254, 182, 17, 0.2)); }
 }
 
 @media (max-width: 768px) {

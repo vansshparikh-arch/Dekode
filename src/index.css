@@ -1,18 +1,19 @@
 /* index.css */
 :root {
   /* Color Palette */
-  --color-bg-dark: #0a0a0f;
-  --color-bg-card: rgba(20, 20, 30, 0.4);
-  --color-accent-blue: #00d2ff;
-  --color-accent-purple: #9d4edd;
-  --color-accent-green: #00f5d4;
-  --color-text-main: #f8f9fa;
-  --color-text-muted: #adb5bd;
+  --color-bg-dark: #FFFFFF;
+  --color-bg-card: rgba(255, 255, 255, 0.8);
+  --color-accent-blue: #3576C1;
+  --color-accent-purple: #043364;
+  --color-accent-green: #3576C1;
+  --color-accent-yellow: #FEB611;
+  --color-text-main: #212121;
+  --color-text-muted: #666666;
   
   /* Glassmorphism */
-  --glass-border: 1px solid rgba(255, 255, 255, 0.08);
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --glass-border: 1px solid rgba(0, 0, 0, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
   --glass-blur: blur(12px);
 
   /* Typography */
@@ -61,12 +62,12 @@ ul {
   font-size: 2.8rem;
   text-align: center;
   margin-bottom: 3.5rem;
-  background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
+  background: linear-gradient(135deg, #043364 0%, #3576C1 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   /* A very tight 2px shadow for definition, avoiding the blur look */
-  text-shadow: 0 0 2px rgba(255, 255, 255, 0.1);
+  text-shadow: 0 0 2px rgba(4, 51, 100, 0.1);
   letter-spacing: -0.01em;
 }
 
@@ -74,8 +75,8 @@ ul {
   color: var(--color-accent-blue);
   /* Use a sharp 2px glow for the "core" and a faint 10px glow for the "aura" */
   text-shadow: 
-    0 0 2px rgba(0, 210, 255, 0.9),
-    0 0 10px rgba(0, 210, 255, 0.3);
+    0 0 2px rgba(53, 118, 193, 0.9),
+    0 0 10px rgba(53, 118, 193, 0.3);
   font-weight: 700;
   letter-spacing: 0.02em;
 }
@@ -83,8 +84,8 @@ ul {
 .glow-text-purple {
   color: var(--color-accent-purple);
   text-shadow: 
-    0 0 2px rgba(157, 78, 221, 0.9),
-    0 0 10px rgba(157, 78, 221, 0.3);
+    0 0 2px rgba(4, 51, 100, 0.9),
+    0 0 10px rgba(4, 51, 100, 0.3);
   font-weight: 700;
   letter-spacing: 0.02em;
 }
@@ -114,8 +115,8 @@ ul {
 
 .glass-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(0, 210, 255, 0.3);
-  box-shadow: 0 8px 32px 0 rgba(0, 210, 255, 0.1);
+  border-color: rgba(53, 118, 193, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(53, 118, 193, 0.1);
 }
 
 /* Buttons */
@@ -127,6 +128,7 @@ ul {
   border-radius: 8px;
   font-family: var(--font-heading);
   font-weight: 600;
+  text-transform: uppercase;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
@@ -149,5 +151,5 @@ ul {
 }
 
 .btn-primary:hover {
-  box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+  box-shadow: 0 0 20px rgba(53, 118, 193, 0.4);
 }

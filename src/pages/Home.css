@@ -18,9 +18,9 @@
 }
 
 .bg-dark-layer {
-  background: rgba(10, 10, 15, 0.4);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.4);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .gap-12 {
@@ -61,9 +61,9 @@
   margin: 0 auto;
   border-radius: 50%;
   background: linear-gradient(90deg, 
-    rgba(255, 255, 255, 0.03) 25%, 
-    rgba(0, 210, 255, 0.08) 50%, 
-    rgba(255, 255, 255, 0.03) 75%
+    rgba(0, 0, 0, 0.03) 25%, 
+    rgba(53, 118, 193, 0.08) 50%, 
+    rgba(0, 0, 0, 0.03) 75%
   );
   background-size: 200% 100%;
   animation: skeletonShimmer 2s infinite linear;

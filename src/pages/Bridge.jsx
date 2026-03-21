@@ -1,5 +1,44 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback, useState, Suspense, lazy } from 'react';
 import './Bridge.css';
+
+const GlobeDemo = lazy(() => import('../components/GlobeDemo').then(m => ({ default: m.GlobeDemo })));
+
+const GlobeWrapper = () => {
+  const ref = useRef(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '300px' }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} style={{ width: '100%', height: '100%', position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      {shouldLoad ? (
+        <Suspense fallback={<div className="globe-skeleton" style={{ width: '100%', height: '100%', borderRadius: '50%', background: 'rgba(53, 118, 193, 0.1)', animation: 'ringPulse 2s infinite' }} />}>
+          <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <GlobeDemo />
+          </div>
+        </Suspense>
+      ) : (
+        <div className="globe-skeleton" />
+      )}
+    </div>
+  );
+};
 
 /* ── Cyber Pillar Card (adapted from uiverse.io / 00Kubi) ── */
 const CyberPillarCard = ({ icon, title, desc, accent }) => {
@@ -15,26 +54,18 @@ const CyberPillarCard = ({ icon, title, desc, accent }) => {
     const cy = rect.height / 2;
     const rotX = ((y - cy) / cy) * -20;
     const rotY = ((x - cx) / cx) * 20;
-    cardRef.current.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+    cardRef.current.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-10px)`;
     cardRef.current.style.transition = '125ms ease-in-out';
-    if (titleRef.current) {
-      titleRef.current.style.opacity = '1';
-      titleRef.current.style.transform = 'translateY(-10px)';
-    }
   }, []);
 
   const handleMouseLeave = useCallback(() => {
-    cardRef.current.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    cardRef.current.style.transform = 'rotateX(0deg) rotateY(0deg) translateY(0)';
     cardRef.current.style.transition = '700ms';
-    if (titleRef.current) {
-      titleRef.current.style.opacity = '0';
-      titleRef.current.style.transform = 'translateY(0)';
-    }
   }, []);
 
   const isBlue = accent === 'blue';
   const glowColor = isBlue ? 'rgba(0,210,255,' : 'rgba(157,78,221,';
-  const accentHex = isBlue ? '#00d2ff' : '#9d4edd';
+  const accentHex = isBlue ? 'var(--color-accent-blue)' : '#9d4edd';
 
   return (
     <div
@@ -81,8 +112,8 @@ const CyberPillarCard = ({ icon, title, desc, accent }) => {
         </div>
 
         {/* Content */}
-        <div className="cpc-icon" style={{ filter: `contrast(0) brightness(20) drop-shadow(0 0 10px ${accentHex})` }}>{icon}</div>
-        <div ref={titleRef} className="cpc-title" style={{ background: `linear-gradient(45deg, ${accentHex}, #ffffff)`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+        <div className="cpc-icon" style={{ filter: `brightness(0) invert(1) drop-shadow(0 0 12px rgba(255,255,255,0.9))` }}>{icon}</div>
+        <div ref={titleRef} className="cpc-title" style={{ color: 'var(--color-accent-yellow)', opacity: 1, transform: 'translateY(0)' }}>
           {title}
         </div>
         <div className="cpc-desc">{desc}</div>
@@ -161,6 +192,7 @@ const Bridge = () => {
         <canvas ref={canvasRef} style={{ display: 'block' }}></canvas>
       </div>
       <section className="bridge-hero relative w-full overflow-hidden" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', paddingTop: '80px', background: 'transparent' }}>
+        <div className="bridge-grid-overlay"></div>
 
 
         <div className="container hero-content text-center" style={{ zIndex: 30, position: 'relative' }}>
@@ -177,21 +209,39 @@ const Bridge = () => {
           </p>
 
           {/* ── Cyber Electric AU — BRIDGE — IN ── */}
-          <div className="w-full max-w-3xl mx-auto mt-10 mb-16 relative z-10 select-none bridge-connection-graphic">
+          <div className="w-full max-w-4xl mx-auto mt-14 mb-20 relative z-10 select-none bridge-connection-graphic">
+            {/* Background Flares for Identity Section */}
+            <div style={{ position: 'absolute', top: '50%', left: '0', transform: 'translate(-50%, -50%)', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(53, 118, 193, 0.3) 0%, transparent 70%)', filter: 'blur(40px)', zIndex: -1, pointerEvents: 'none' }}></div>
+            <div style={{ position: 'absolute', top: '50%', right: '0', transform: 'translate(50%, -50%)', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(254, 182, 17, 0.2) 0%, transparent 70%)', filter: 'blur(40px)', zIndex: -1, pointerEvents: 'none' }}></div>
+            
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
 
               {/* AU */}
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0, width: '120px', textAlign: 'center' }}>
-                <span style={{ fontWeight: 900, color: 'white', fontSize: '3.8rem', lineHeight: 1, textShadow: '0 0 35px rgba(0,210,255,0.9)' }}>AU</span>
-                <span style={{ fontWeight: 700, fontSize: '0.7rem', letterSpacing: '0.35em', marginTop: '8px', color: 'rgba(0,210,255,0.85)' }}>AUSTRALIA</span>
+                <span style={{ 
+                  fontWeight: 900, 
+                  fontSize: '4.5rem', 
+                  lineHeight: 1, 
+                  background: 'linear-gradient(135deg, #004ecc 0%, #ff0000 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  filter: 'drop-shadow(0 0 15px rgba(0, 78, 204, 0.6)) drop-shadow(0 0 30px rgba(0, 78, 204, 0.4))'
+                }}>AU</span>
+                <span style={{ 
+                  fontWeight: 800, 
+                  fontSize: '0.75rem', 
+                  letterSpacing: '0.35em', 
+                  marginTop: '12px', 
+                  color: '#004ecc'
+                }}>AUSTRALIA</span>
               </div>
 
               {/* Left line */}
               <div style={{ position: 'relative', flex: 1, height: '2px', minWidth: '60px' }}>
-                <div style={{ position: 'absolute', inset: 0, borderRadius: '2px', background: 'linear-gradient(90deg, rgba(0,210,255,0.25), rgba(255,215,0,0.3))' }}></div>
+                <div style={{ position: 'absolute', inset: 0, borderRadius: '2px', background: 'linear-gradient(90deg, rgba(0,78,204,0.25), rgba(254,182,17,0.3))' }}></div>
                 <div style={{
                   position: 'absolute', inset: 0, borderRadius: '2px',
-                  background: 'linear-gradient(90deg, transparent, #00d2ff 35%, #ffd700 65%, transparent)',
+                  background: 'linear-gradient(90deg, transparent, #004ecc 35%, #FEB611 65%, transparent)',
                   backgroundSize: '200% 100%',
                   animation: 'beamTravel 2.5s linear infinite',
                 }}></div>
@@ -199,8 +249,8 @@ const Bridge = () => {
                   position: 'absolute', top: '50%', left: '50%',
                   transform: 'translate(-50%, -50%)',
                   width: '10px', height: '10px', borderRadius: '50%',
-                  background: '#ffd700',
-                  boxShadow: '0 0 10px #ffd700, 0 0 22px rgba(255,215,0,0.5)',
+                  background: '#FEB611',
+                  boxShadow: '0 0 10px #FEB611, 0 0 22px rgba(254,182,17,0.5)',
                   animation: 'nodePulse 1.8s ease-in-out infinite',
                 }}></div>
               </div>
@@ -210,19 +260,19 @@ const Bridge = () => {
                 <div style={{
                   width: '82px', height: '82px', borderRadius: '50%',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  border: '2px solid rgba(255,215,0,0.5)',
-                  background: 'radial-gradient(circle, rgba(255,215,0,0.18) 0%, transparent 70%)',
-                  boxShadow: '0 0 30px rgba(255,215,0,0.45), inset 0 0 15px rgba(255,215,0,0.08)',
+                  border: '2px solid rgba(254,182,17,0.5)',
+                  background: 'radial-gradient(circle, rgba(254,182,17,0.18) 0%, transparent 70%)',
+                  boxShadow: '0 0 30px rgba(254,182,17,0.45), inset 0 0 15px rgba(254,182,17,0.08)',
                   animation: 'ringPulse 2.5s ease-in-out infinite',
                   fontSize: '2.4rem',
                 }}>🤝</div>
                 <span style={{
-                  color: '#ffd700',
+                  color: '#FEB611',
                   fontSize: '0.6rem',
                   fontWeight: 900,
                   letterSpacing: '0.55em',
                   marginTop: '10px',
-                  textShadow: '0 0 10px #ffd700',
+                  textShadow: '0 0 10px #FEB611',
                   animation: 'textGlow 2s ease-in-out infinite',
                   textTransform: 'uppercase',
                 }}>BRIDGE</span>
@@ -230,10 +280,10 @@ const Bridge = () => {
 
               {/* Right line */}
               <div style={{ position: 'relative', flex: 1, height: '2px', minWidth: '60px' }}>
-                <div style={{ position: 'absolute', inset: 0, borderRadius: '2px', background: 'linear-gradient(90deg, rgba(255,215,0,0.3), rgba(157,78,221,0.25))' }}></div>
+                <div style={{ position: 'absolute', inset: 0, borderRadius: '2px', background: 'linear-gradient(90deg, rgba(254,182,17,0.3), rgba(19,136,8,0.25))' }}></div>
                 <div style={{
                   position: 'absolute', inset: 0, borderRadius: '2px',
-                  background: 'linear-gradient(90deg, transparent, #ffd700 35%, #9d4edd 65%, transparent)',
+                  background: 'linear-gradient(90deg, transparent, #FEB611 35%, #138808 65%, transparent)',
                   backgroundSize: '200% 100%',
                   animation: 'beamTravel 2.5s linear infinite 1.25s',
                 }}></div>
@@ -241,16 +291,30 @@ const Bridge = () => {
                   position: 'absolute', top: '50%', left: '50%',
                   transform: 'translate(-50%, -50%)',
                   width: '10px', height: '10px', borderRadius: '50%',
-                  background: '#ffd700',
-                  boxShadow: '0 0 10px #ffd700, 0 0 22px rgba(255,215,0,0.5)',
+                  background: '#FEB611',
+                  boxShadow: '0 0 10px #FEB611, 0 0 22px rgba(254,182,17,0.5)',
                   animation: 'nodePulse 1.8s ease-in-out infinite 0.9s',
                 }}></div>
               </div>
 
               {/* IN */}
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0, width: '120px', textAlign: 'center' }}>
-                <span style={{ fontWeight: 900, color: 'white', fontSize: '3.8rem', lineHeight: 1, textShadow: '0 0 35px rgba(157,78,221,0.9)' }}>IN</span>
-                <span style={{ fontWeight: 700, fontSize: '0.7rem', letterSpacing: '0.35em', marginTop: '8px', color: 'rgba(157,78,221,0.85)' }}>INDIA</span>
+                <span style={{ 
+                  fontWeight: 900, 
+                  fontSize: '4.5rem', 
+                  lineHeight: 1, 
+                  background: 'linear-gradient(180deg, #FF9933 10%, #FFFFFF 50%, #138808 90%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  filter: 'drop-shadow(0 0 15px rgba(255, 153, 51, 0.5)) drop-shadow(0 0 30px rgba(19, 136, 8, 0.4))'
+                }}>IN</span>
+                <span style={{ 
+                  fontWeight: 800, 
+                  fontSize: '0.75rem', 
+                  letterSpacing: '0.35em', 
+                  marginTop: '12px', 
+                  color: '#FF9933'
+                }}>INDIA</span>
               </div>
 
             </div>
@@ -272,7 +336,17 @@ const Bridge = () => {
 
         </div>
 
+      </section>
 
+      {/* Globe Section */}
+      <section className="relative w-full overflow-hidden z-20" style={{ minHeight: '800px', display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'transparent', padding: '4rem 0' }}>
+        <div style={{ width: '100%', maxWidth: '600px', height: '600px', position: 'relative', zIndex: 10 }}>
+          {/* Left side Blue Flare */}
+          <div style={{ position: 'absolute', top: '50%', left: '-30%', transform: 'translateY(-50%)', width: '500px', height: '800px', background: 'radial-gradient(ellipse at center, rgba(53, 118, 193, 0.75) 0%, rgba(53, 118, 193, 0) 70%)', filter: 'blur(50px)', zIndex: -1, pointerEvents: 'none' }}></div>
+          {/* Right side Yellow Flare */}
+          <div style={{ position: 'absolute', top: '50%', right: '-30%', transform: 'translateY(-50%)', width: '500px', height: '800px', background: 'radial-gradient(ellipse at center, rgba(254, 182, 17, 0.45) 0%, rgba(254, 182, 17, 0) 70%)', filter: 'blur(50px)', zIndex: -1, pointerEvents: 'none' }}></div>
+          <GlobeWrapper />
+        </div>
       </section>
 
       <section className="py-20 relative z-20 bg-dark-layer">
@@ -302,7 +376,7 @@ const Bridge = () => {
         </div>
       </section>
 
-      <section className="py-24 relative z-20" style={{ background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 100%)' }}>
+      <section className="py-24 relative z-20" style={{ background: 'transparent' }}>
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="section-title">What Bridge Enables</h2>
@@ -325,11 +399,11 @@ const Bridge = () => {
       </section>
 
 
-      <section className="py-24 relative z-20 bg-dark-layer">
+      <section className="py-24 relative z-20">
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="section-title">How It Works</h2>
-            <p className="section-subtitle">Simple to start. Built to grow.</p>
+            <h2 className="section-title" style={{ color: 'var(--color-accent-purple)' }}>How It Works</h2>
+            <p className="section-subtitle" style={{ color: 'var(--color-text-main)' }}>Simple to start. Built to grow.</p>
           </div>
 
           <div className="relative max-w-4xl mx-auto">
